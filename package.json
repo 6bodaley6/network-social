@@ -1,7 +1,9 @@
 {
   "": "network-social",
   "version": "1.0.0",
+  "description": "social network",
   "main": "server.js",
+  "type": "commonjs",
   "scripts": {
     "start": "node server.js",
     "test": "echo\"Error: no test specified\" && exit 1"
@@ -9,5 +11,9 @@
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^5.12.13"
+  },
+  "devDependencies": {
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2"
   }
 }

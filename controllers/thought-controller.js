@@ -2,7 +2,7 @@ const { User, Thought } = require('../models');
 
 const thoughtController = {
     //get all thoughts
-    getAllThoughts(req, res) {
+    getAllThought(req, res) {
         Thought.find({})
             .select('-__v')
             .sort({ _id: -1 })
@@ -51,11 +51,11 @@ const thoughtController = {
             .catch(err => res.status(400).json(err));
     },
     //delete thought
-    deleteThough({ params }, res) {
+    deleteThought({ params }, res) {
         Thought.findOneAndDelte({ _id: params.id })
             .then(dbThoughtData => {
                 if (!dbThoughtData) {
-                    res.status(400).json({ message: 'no though found with this id' });
+                    res.status(404).json({ message: 'no though found with this id' });
                     return;
                 }
                 res.json(dbThoughtData);
