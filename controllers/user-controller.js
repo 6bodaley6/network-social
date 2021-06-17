@@ -52,7 +52,8 @@ const userController = {
     },
     //update user by id
     updateUser({ params, body }, res) {
-        User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
+        User.findOneAndUpdate(
+            { _id: params.id }, body, { new: true, runValidators: true })
             .then(dbUserData => {
                 if (!dbUserData) {
                     res.status(404).json({ message: 'no user found with this id' });
@@ -78,8 +79,8 @@ const userController = {
     addFriend({ params }, res) {
         User.findOneAndUpdate(
             { _id: params.id },
-            { $push: { friends: params.friendId } },
-            { new: true }
+            { $addToSet: { friends: params.friendId } },
+            { new: true, runValidators: true }
         )
             .then(dbUserData => {
                 if (!dbUserData) {
