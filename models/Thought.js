@@ -7,59 +7,53 @@ const ReactionSchema = new Schema(
             type: Schema.Types.ObjectId,
             default: () => new Types.ObjectId()
         },
-        reactionText: {
+        reactionBody: {
             type: String,
             required: true,
             trim: true,
             minLength: 1,
-            maxLength: 280
+            maxLength: [280, 'reaction must be 280 characters or less']
         },
-        writtenBy: {
+        username: {
             type: String,
             required: true,
-            trim: true
         },
         createdAt: {
             type: Date,
             default: Date.now,
             get: createdAtVal => dateFormat(createdAtVal)
         }
-    },
-    {
-        toJSON: {
-            getters: true
-        }
     }
-);
+    , { toJSON: { getters: true } });
 
 const ThoughtSchema = new Schema(
     {
-        username: {
-            type: String,
-            required: true,
-            trim: true
-        },
         thoughtText: {
             type: String,
             required: true,
             trim: true,
-            minLength: 1,
-            maxLength: 280
+            minLength: [4, 'thought must be longer'],
+            maxLength: [280, 'thought cannot be longer than 280 characters']
         },
         createdAt: {
             type: Date,
             default: Date.now,
             get: createdAtVal => dateFormat(createdAtVal)
+        },
+        //user that is creating thought
+        username: {
+            type: String,
+            required: true,
         },
         reactions: [ReactionSchema]
     },
     {
         toJSON: {
-            getters: true,
-            virtuals: true
-        }
+            virtuals: true,
+            getters: true
+        }, id: false
     }
-);
+)
 
 ThoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;

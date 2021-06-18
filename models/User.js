@@ -1,21 +1,28 @@
 const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
+const Thought = require('./Thought');
 
 const UserSchema = new Schema(
     {
         username: {
             type: String,
-            required: 'please provide a username',
+            required: true,
             trim: true,
             unique: true
         },
         email: {
             type: String,
-            required: 'please provide a email',
-            trim: true,
-            unique: true
+            required: true,
+            unique: true,
+            match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'please provide a valid email']
         },
         thoughts: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Thought'
+            }
+        ],
+        friends: [
             {
                 type: Schema.Types.ObjectId,
                 ref: 'User'
@@ -25,11 +32,18 @@ const UserSchema = new Schema(
     {
         toJSON: {
             virtuals: true,
-            getters: true
         },
         id: false
     }
 );
+
+UserSchema.post('findOneAndDelete', function (doc) {
+    const userThoughtArr = doc.thoughts
+    console.log(userThoughtArr);
+    Thought.deleteMany({ _id: { $in: userThoughtArr } })
+        .then(result => console.log('Thoughts deleted result'))
+        .catch(err => console.log(err))
+})
 
 UserSchema.virtual('friendCount').get(function () {
     return this.friends.length;
