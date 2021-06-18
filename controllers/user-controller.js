@@ -22,7 +22,7 @@ const userController = {
     },
     //!!GET one user by id
     getUserById({ params }, res) {
-        User.findOne({ _id: params._id })
+        User.findOne({ _id: params.id })
             .populate({
                 path: 'comments',
                 select: '-__v'

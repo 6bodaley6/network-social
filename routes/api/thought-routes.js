@@ -17,10 +17,13 @@ router
 router
     .route('/:id')
     .get(getThoughtById)
-    .get(updateThought)
-    .post(addReaction)
+    .put(updateThought)
+    // // .post(addReaction)
     .delete(deleteThought);
-//!! /api/thoughts/<thoughtId>/<reactionId>
+//!! /api/thoughts/<thoughtID>/reactions/
+router.route('/:id/reactions')
+    .post(addReaction);
+//!! /api/thoughts/<thoughtId>/reactions/<reactionId>
 router.route('/:id/:reactionId')
     .delete(removeReaction);
 
