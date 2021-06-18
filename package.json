@@ -1,12 +1,16 @@
 {
-  "": "network-social",
+  "name": "network-social",
   "version": "1.0.0",
+  "description": "social network",
+  "private": true,
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo\"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
+  "keywords": [],
+  "author": "",
   "dependencies": {
+    "date-fns": "^2.22.1",
     "express": "^4.17.1",
     "mongoose": "^5.12.13"
   }
