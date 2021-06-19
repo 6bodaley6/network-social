@@ -15,6 +15,10 @@ This is an API for a social network that uses a NoSQL database it can handle lar
 - [Questions](#Questions)
 - [License](#license)
 
+## Video Walkthrough
+https://drive.google.com/file/d/154uNRVe9Uk9TzNrPNp1GsZM7DkZsPQZk/view
+https://drive.google.com/file/d/1wkoyBT1ZtgmGRPNCOueRynaaqQTiBlzS/view
+
 ## Installation
 
 git clone git@github.com:6bodaley6/network-social.git THEN npm i THEN npm start then open up insomnia core to check routes
